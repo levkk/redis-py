@@ -923,7 +923,10 @@ class Redis:
         self.close()
 
     def close(self):
-        conn = self.connection
+        try:
+            conn = self.connection
+        except AttributeError:
+            return
         if conn:
             self.connection = None
             self.connection_pool.release(conn)
